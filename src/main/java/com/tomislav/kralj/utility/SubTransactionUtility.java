@@ -30,7 +30,7 @@ public class SubTransactionUtility implements ControllerUtility<SubTransaction>{
 	}
 
 	public void sort(List<SubTransaction> list, String sortField, String sortDirection) {
-		LOGGER.info("Sort filter list.");
+		LOGGER.info("Sort subtransaction list.");
 		
 		if(sortField == null)
 			sortField = settings.getSortField().getSubTransaction();
@@ -41,20 +41,20 @@ public class SubTransactionUtility implements ControllerUtility<SubTransaction>{
 		Comparator<SubTransaction> comparator = new DataComparator<>(sortField);
 		
 
-		if(sortDirection.equals(ASCENDING))
+		if(ASCENDING.equals(sortDirection))
 			list.sort(comparator);
-		else if(sortDirection.equals(DESCENDING))
+		else if(DESCENDING.equals(sortDirection))
 			list.sort(comparator.reversed());
 	}
 	
 	
 	public List<SubTransaction> filter(List<SubTransaction> list, Map<String, String> filters){
-		LOGGER.info("Filter person list.");
+		LOGGER.info("Filter subtransaction list.");
 		
 		List<SubTransaction> filteredList = new ArrayList<>();
 		
 		if(filters == null)
-			return filteredList;
+			return list;
 		
 		filterLoop: for(SubTransaction item : list) {
 			for(Map.Entry<String, String> entry : filters.entrySet()) {

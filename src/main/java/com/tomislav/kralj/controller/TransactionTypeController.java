@@ -34,7 +34,7 @@ public class TransactionTypeController {
 
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public Resource<DataWrapper<List<TransactionTypeDTO>>> getTransactionTypeList(){
+	public Resource<DataWrapper<TransactionTypeDTO>> getTransactionTypeList(){
 		LOGGER.info("Get transactionType list.");
 		
 		List<TransactionTypeDTO> result = new ArrayList<>();

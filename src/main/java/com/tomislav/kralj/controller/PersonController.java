@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,7 @@ public class PersonController {
 
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public Resource<DataWrapper<List<PersonDTO>>> getPersonList(){
+	public Resource<DataWrapper<PersonDTO>> getPersonList(){
 		LOGGER.info("Get person list.");
 		
 		List<PersonDTO> result = new ArrayList<>();
@@ -55,7 +54,7 @@ public class PersonController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public Resource<DataWrapper<List<PersonDTO>>> getPersonList(@RequestBody Page page){
+	public Resource<DataWrapper<PersonDTO>> getPersonList(@RequestBody Page page){
 		LOGGER.info("Get person list.");
 		
 		List<PersonDTO> result = new ArrayList<>();
@@ -72,18 +71,18 @@ public class PersonController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public Resource<PersonDTO> getPerson(@PathVariable Integer id) throws NotFoundException{
+	public ResponseEntity<PersonDTO> getPerson(@PathVariable Integer id){
 		LOGGER.info("Get person with id " + id + ".");
 		
 		Person person = personRepository.getOne(id);
 		if(person == null) {
 			LOGGER.error("Person with id " + id + " was not found!");
-			throw new NotFoundException();
+			return new ResponseEntity<PersonDTO>(new PersonDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		PersonDTO result = PersonConverter.toDTO(person);
 		
-		return new Resource<>(result);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)

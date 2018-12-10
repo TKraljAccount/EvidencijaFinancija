@@ -43,7 +43,7 @@ public class TransactionController {
 
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public Resource<DataWrapper<List<TransactionDTO>>> getTransactionList(){
+	public Resource<DataWrapper<TransactionDTO>> getTransactionList(){
 		LOGGER.info("Get transaction list.");
 		
 		List<TransactionDTO> result = new ArrayList<>();
@@ -59,7 +59,7 @@ public class TransactionController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public Resource<DataWrapper<List<TransactionDTO>>> getTransactionList(@RequestBody Page page){
+	public Resource<DataWrapper<TransactionDTO>> getTransactionList(@RequestBody Page page){
 		LOGGER.info("Get transaction list.");
 		
 		List<TransactionDTO> result = new ArrayList<>();
@@ -76,18 +76,18 @@ public class TransactionController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public Resource<TransactionDTO> getTransaction(@PathVariable Integer id) throws NotFoundException{
+	public ResponseEntity<TransactionDTO> getTransaction(@PathVariable Integer id) throws NotFoundException{
 		LOGGER.info("Get transaction with id " + id + ".");
 		
 		Transaction transaction = transactionRepository.getOne(id);
 		if(transaction == null) {
 			LOGGER.error("Transaction with id " + id + " was not found!");
-			throw new NotFoundException();
+			return new ResponseEntity<>(new TransactionDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		TransactionDTO result = TransactionConverter.toDTO(transaction);
 		
-		return new Resource<>(result);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)

@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +49,7 @@ public class SubTransactionController {
 
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public Resource<DataWrapper<List<SubTransactionDTO>>> getPaymentList(){
+	public Resource<DataWrapper<SubTransactionDTO>> getPaymentList(){
 		LOGGER.info("Get payment/income list.");
 		
 		List<SubTransactionDTO> result = new ArrayList<>();
@@ -71,7 +70,7 @@ public class SubTransactionController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public Resource<DataWrapper<List<SubTransactionDTO>>> getPaymentList(@RequestBody Page page){
+	public Resource<DataWrapper<SubTransactionDTO>> getPaymentList(@RequestBody Page page){
 		LOGGER.info("Get payment/income list.");
 		
 		List<SubTransactionDTO> result = new ArrayList<>();
@@ -94,32 +93,32 @@ public class SubTransactionController {
 	
 	
 	@RequestMapping(value="/income/{id}", method=RequestMethod.GET)
-	public Resource<SubTransactionDTO> getIncome(@PathVariable Integer id) throws NotFoundException{
+	public ResponseEntity<SubTransactionDTO> getIncome(@PathVariable Integer id){
 		LOGGER.info("Get income with id " + id + ".");
 		
 		SubTransaction elem = incomeRepository.getOne(id);
 		if(elem == null) {
 			LOGGER.error("Income with id " + id + " was not found!");
-			throw new NotFoundException();
+			return new ResponseEntity<>(new SubTransactionDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		SubTransactionDTO result = SubTransactionConverter.toDTO(elem);
 		
-		return new Resource<>(result);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	@RequestMapping(value="/payment/{id}", method=RequestMethod.GET)
-	public Resource<SubTransactionDTO> getPayment(@PathVariable Integer id) throws NotFoundException{
+	public ResponseEntity<SubTransactionDTO> getPayment(@PathVariable Integer id){
 		LOGGER.info("Get payment with id " + id + ".");
 		
 		SubTransaction elem = paymentRepository.getOne(id);
 		if(elem == null) {
 			LOGGER.error("Payment with id " + id + " was not found!");
-			throw new NotFoundException();
+			return new ResponseEntity<>(new SubTransactionDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		SubTransactionDTO result = SubTransactionConverter.toDTO(elem);
 		
-		return new Resource<>(result);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	

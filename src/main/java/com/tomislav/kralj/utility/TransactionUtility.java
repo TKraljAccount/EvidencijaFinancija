@@ -30,7 +30,7 @@ public class TransactionUtility implements ControllerUtility<Transaction> {
 	}
 
 	public void sort(List<Transaction> transactionList, String sortField, String sortDirection) {
-		LOGGER.info("Sort filter list.");
+		LOGGER.info("Sort transaction list.");
 		
 		if(sortField == null)
 			sortField = settings.getSortField().getTransaction();
@@ -41,20 +41,20 @@ public class TransactionUtility implements ControllerUtility<Transaction> {
 		Comparator<Transaction> comparator = new DataComparator<>(sortField);
 		
 
-		if(sortDirection.equals(ASCENDING))
+		if(ASCENDING.equals(sortDirection))
 			transactionList.sort(comparator);
-		else if(sortDirection.equals(DESCENDING))
+		else if(DESCENDING.equals(sortDirection))
 			transactionList.sort(comparator.reversed());
 	}
 	
 	
 	public List<Transaction> filter(List<Transaction> transactionList, Map<String, String> filters){
-		LOGGER.info("Filter person list.");
+		LOGGER.info("Filter transaction list.");
 		
 		List<Transaction> filteredList = new ArrayList<>();
 		
 		if(filters == null)
-			return filteredList;
+			return transactionList;
 		
 		filterLoop: for(Transaction transaction : transactionList) {
 			for(Map.Entry<String, String> entry : filters.entrySet()) {

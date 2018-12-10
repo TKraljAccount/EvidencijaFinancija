@@ -1,27 +1,23 @@
 package com.tomislav.kralj.model.database;
 
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
-import lombok.Data;
-
-
-@Data
-public abstract class SubTransaction implements DatabaseObject {
+public interface SubTransaction extends DatabaseObject {
 	
-	@NotNull
-	private Double amount;
-	private String description;
-	@NotNull
-	@ManyToOne
-	Person person;
-	@NotNull
-	@ManyToOne
-	Transaction transaction;
+	Integer getId();
+	void setId(Integer id);
 	
-	public abstract Integer getId();
+	Double getAmount();
+	void setAmount(Double amount);
 	
-	public abstract void setId(Integer id);
+	String getDescription();
+	void setDescription(String description);
+	
+	Person getPerson();
+	void setPerson(Person person);
+	
+	Transaction getTransaction();
+	void setTransaction(Transaction transaction);
+	
 	
 
 }

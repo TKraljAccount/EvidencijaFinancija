@@ -22,7 +22,7 @@ public abstract class SubTransactionConverter implements Converter {
 		dto.setDescription(data.getDescription());
 		if(data.getPerson() != null)
 			dto.setPersonId(data.getPerson().getPersonId());
-		if(data.getTransaction().getTransactionId() != null)
+		if(data.getTransaction() != null)
 			dto.setTransactionId(data.getTransaction().getTransactionId());
 		
 		if(data instanceof Income)

@@ -29,7 +29,7 @@ public class PersonUtility implements ControllerUtility<Person> {
 	}
 
 	public void sort(List<Person> personList, String sortField, String sortDirection) {
-		LOGGER.info("Sort filter list.");
+		LOGGER.info("Sort person list.");
 		
 		if(sortField == null)
 			sortField = settings.getSortField().getPerson();
@@ -40,9 +40,9 @@ public class PersonUtility implements ControllerUtility<Person> {
 		Comparator<Person> comparator = new DataComparator<>(sortField);
 		
 
-		if(sortDirection.equals(ASCENDING))
+		if(ASCENDING.equals(sortDirection))
 			personList.sort(comparator);
-		else if(sortDirection.equals(DESCENDING))
+		else if(DESCENDING.equals(sortDirection))
 			personList.sort(comparator.reversed());
 	}
 	
@@ -53,7 +53,7 @@ public class PersonUtility implements ControllerUtility<Person> {
 		List<Person> filteredList = new ArrayList<>();
 		
 		if(filters == null)
-			return filteredList;
+			return personList;
 		
 		personLoop: for(Person person : personList) {
 			for(Map.Entry<String, String> entry : filters.entrySet()) {
