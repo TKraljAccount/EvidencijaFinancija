@@ -67,7 +67,7 @@ public class SubTransactionUtility implements ControllerUtility<SubTransaction>{
 						!item.getDescription().contains(entry.getValue())))
 					continue filterLoop;
 				if(entry.getKey().equals("isIncome") && 
-						(item instanceof Income))
+						!(item instanceof Income))
 					continue filterLoop;
 				if(entry.getKey().equals("personId") && 
 						(item.getPerson() == null || 
