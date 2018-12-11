@@ -88,7 +88,7 @@ public class SubTransactionController {
 		for(SubTransaction elem : list)
 			result.add(SubTransactionConverter.toDTO(elem));
 		
-		return new Resource<>(new DataWrapper<>(result));
+		return new Resource<>(new DataWrapper<>(result, page));
 	}
 	
 	

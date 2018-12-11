@@ -67,7 +67,7 @@ public class PersonController {
 		for(Person person : personList)
 			result.add(PersonConverter.toDTO(person));
 		
-		return new Resource<>(new DataWrapper<>(result));
+		return new Resource<>(new DataWrapper<>(result, page));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
@@ -77,7 +77,7 @@ public class PersonController {
 		Person person = personRepository.getOne(id);
 		if(person == null) {
 			LOGGER.error("Person with id " + id + " was not found!");
-			return new ResponseEntity<PersonDTO>(new PersonDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new PersonDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		PersonDTO result = PersonConverter.toDTO(person);

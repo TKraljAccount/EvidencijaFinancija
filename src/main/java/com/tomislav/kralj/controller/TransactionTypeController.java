@@ -35,7 +35,7 @@ public class TransactionTypeController {
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public Resource<DataWrapper<TransactionTypeDTO>> getTransactionTypeList(){
-		LOGGER.info("Get transactionType list.");
+		LOGGER.info("Get transaction type list.");
 		
 		List<TransactionTypeDTO> result = new ArrayList<>();
 		List<TransactionType> transactionTypeList = transactionTypeRepository.findAll();
@@ -50,7 +50,7 @@ public class TransactionTypeController {
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
 	public ResponseEntity<HttpStatus> newTransactionType(@RequestBody TransactionTypeDTO transactionTypeDTO){
-		LOGGER.info("Add new transactionType.");
+		LOGGER.info("Add new transaction type.");
 		
 		TransactionType transactionType = TransactionTypeConverter.toData(transactionTypeDTO, transactionTypeRepository);
 		
@@ -61,7 +61,7 @@ public class TransactionTypeController {
 	
 	@RequestMapping(value="/update/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<HttpStatus> updateTransactionType(@RequestBody TransactionTypeDTO transactionTypeDTO, @PathVariable Integer id){
-		LOGGER.info("Update transactionType with id " + id + ".");
+		LOGGER.info("Update transaction type with id " + id + ".");
 		
 		transactionTypeDTO.setTypeId(id);
 		TransactionType transactionType = TransactionTypeConverter.toData(transactionTypeDTO, transactionTypeRepository);
@@ -73,7 +73,7 @@ public class TransactionTypeController {
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<HttpStatus> deleteTransactionType(@PathVariable Integer id){
-		LOGGER.info("Delete transactionType with id " + id + ".");
+		LOGGER.info("Delete transaction type with id " + id + ".");
 		
 		transactionTypeRepository.deleteById(id);
 		

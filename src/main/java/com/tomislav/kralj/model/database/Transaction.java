@@ -13,6 +13,12 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
+/**
+ * This class represents a group's transaction (income or expense).
+ *
+ * It is useful for grouping values in tables Payment and Income.
+ */
+
 @Entity
 @Data
 public class Transaction implements DatabaseObject {

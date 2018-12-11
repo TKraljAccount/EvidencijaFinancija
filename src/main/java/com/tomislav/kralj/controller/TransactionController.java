@@ -72,7 +72,7 @@ public class TransactionController {
 		for(Transaction transaction : transactionList)
 			result.add(TransactionConverter.toDTO(transaction));
 		
-		return new Resource<>(new DataWrapper<>(result));
+		return new Resource<>(new DataWrapper<>(result, page));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)

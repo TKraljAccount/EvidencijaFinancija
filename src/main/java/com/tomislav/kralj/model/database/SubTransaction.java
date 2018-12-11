@@ -1,6 +1,10 @@
 package com.tomislav.kralj.model.database;
 
-
+/**
+ * This is an interface representing individual person's payment or income.
+ *
+ * It is inherited by classes Payment and Income so they can use common converter and utility methods.
+ */
 public interface SubTransaction extends DatabaseObject {
 	
 	Integer getId();

@@ -10,6 +10,11 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 
+/**
+ * This class represents a person's income.
+ * It has the same attributes as Payment, but is saved in a different table in the database.
+ */
+
 @Entity
 @Data
 public class Income implements SubTransaction {
